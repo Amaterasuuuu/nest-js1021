@@ -1,5 +1,6 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
+import { UpdateImageDto } from './dto/update-image.dto';
 import { IImage } from './interface/image.interface';
 
 @Injectable()
@@ -34,5 +35,17 @@ export class ImageService {
     dto.id = this.DB.length + 1
     this.DB.push(dto)
     return dto
+  }
+
+  async update(id: number, dto: UpdateImageDto): Promise<IImage> {
+    const image = await this.findOne(id)
+    Object.assign(image, dto)
+    return image
+  }
+
+  async delete(id: number): Promise<void> {
+    const image = await this.findOne(id)
+    const imageIndex = this.DB.indexOf(image)
+    this.DB.splice(imageIndex, 1)
   }
 }
