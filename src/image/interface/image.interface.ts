@@ -1,6 +1,9 @@
+import { Category } from '../enum';
+
 export interface IImage {
-  id?: number
-  name: string
-  url: string
-  description: string
-} 
+  id?: number;
+  name: string;
+  category: Category;
+  url: string;
+  description: string;
+}
